@@ -24,12 +24,16 @@ def main():
 			if event.type == pygame.QUIT:
 				return
 			
-		# Draw and Update GameLoop
-		GameDraw(screen)
+		# Update and Draw GameLoop
 		GameUpdate(dt)
+		GameDraw(screen)
+		
 
 		# tick dealta time
 		dt = clock.tick(60)/1000	
+
+def GameUpdate(dt):
+	player.update(dt)
 
 def GameDraw(screen):
 	# Fill Background
@@ -41,8 +45,7 @@ def GameDraw(screen):
 	# push draw changes *** DO LAST ***
 	pygame.display.flip()
 
-def GameUpdate(dt):
-	pass
+
 
 if __name__ == "__main__":
 	main()
