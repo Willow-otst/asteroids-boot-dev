@@ -3,22 +3,46 @@
 # throughout this file
 import pygame
 from constants import *
+from player import Player
+
+# Spawn Player
+player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
 def main():
+	# Start pygame and set screen size
 	pygame.init()
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-	print("Starting asteroids!")
-	print(f"Screen width: {SCREEN_WIDTH}")
-	print(f"Screen height: {SCREEN_HEIGHT}")
+	# Start Clock and set dealta time (dt)
+	clock = pygame.time.Clock()
+	dt = 0
 
-	while (True):
-		pygame.Surface.fill(screen, (255,255,255))
-		pygame.display.flip()
-
+	# game Loop
+	while True:
+		# Close on exit button pressed
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
+			
+		# Draw and Update GameLoop
+		GameDraw(screen)
+		GameUpdate(dt)
+
+		# tick dealta time
+		dt = clock.tick(60)/1000	
+
+def GameDraw(screen):
+	# Fill Background
+	screen.fill("black")
+
+	# Draw player
+	player.draw(screen)
+
+	# push draw changes *** DO LAST ***
+	pygame.display.flip()
+
+def GameUpdate(dt):
+	pass
 
 if __name__ == "__main__":
 	main()
