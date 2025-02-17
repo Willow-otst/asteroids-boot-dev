@@ -4,6 +4,8 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
 	# Start pygame and set screen size
@@ -14,9 +16,15 @@ def main():
 	clock = pygame.time.Clock()
 	dt = 0
 
-	# create update & draw groups
+	# create asteroid, update & draw groups
 	UpdateGroup = pygame.sprite.Group()
 	DrawGroup = pygame.sprite.Group()
+	asteroids = pygame.sprite.Group()
+
+	# setup asteroid field
+	Asteroid.containers = (asteroids, UpdateGroup, DrawGroup)
+	AsteroidField.containers = UpdateGroup
+	asteroid_field = AsteroidField()
 
 	# Spawn Player and add to groups
 	Player.containers = (UpdateGroup, DrawGroup)
@@ -38,8 +46,7 @@ def main():
 
 def GameUpdate(dt, updateGroup):
 	# update Objects
-	for obj in updateGroup:
-		updateGroup.update(dt)
+	updateGroup.update(dt)
 
 def GameDraw(screen, drawGroup):
 	# Fill Background
