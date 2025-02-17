@@ -5,9 +5,6 @@ import pygame
 from constants import *
 from player import Player
 
-# Spawn Player
-player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
 def main():
 	# Start pygame and set screen size
 	pygame.init()
@@ -17,6 +14,14 @@ def main():
 	clock = pygame.time.Clock()
 	dt = 0
 
+	# create update & draw groups
+	UpdateGroup = pygame.sprite.Group()
+	DrawGroup = pygame.sprite.Group()
+
+	# Spawn Player and add to groups
+	Player.containers = (UpdateGroup, DrawGroup)
+	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
 	# game Loop
 	while True:
 		# Close on exit button pressed
@@ -25,22 +30,24 @@ def main():
 				return
 			
 		# Update and Draw GameLoop
-		GameUpdate(dt)
-		GameDraw(screen)
-		
+		GameUpdate(dt, UpdateGroup)
+		GameDraw(screen, DrawGroup)
 
 		# tick dealta time
 		dt = clock.tick(60)/1000	
 
-def GameUpdate(dt):
-	player.update(dt)
+def GameUpdate(dt, updateGroup):
+	# update Objects
+	for obj in updateGroup:
+		updateGroup.update(dt)
 
-def GameDraw(screen):
+def GameDraw(screen, drawGroup):
 	# Fill Background
 	screen.fill("black")
 
-	# Draw player
-	player.draw(screen)
+	# Draw Objects
+	for obj in drawGroup:
+		obj.draw(screen)
 
 	# push draw changes *** DO LAST ***
 	pygame.display.flip()
