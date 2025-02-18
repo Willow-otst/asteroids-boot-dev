@@ -56,8 +56,8 @@ def main():
 			# check shot collisions
 			for shot in shots:
 				if shot.CollidesWith(asteroid):
-					asteroid.kill()
 					shot.kill()
+					asteroid.split()
 
 		# tick dealta time
 		dt = clock.tick(60)/1000	
