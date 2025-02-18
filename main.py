@@ -6,6 +6,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
 	# Start pygame and set screen size
@@ -16,10 +17,11 @@ def main():
 	clock = pygame.time.Clock()
 	dt = 0
 
-	# create asteroid, update & draw groups
+	# create asteroids, shots, update & draw groups
 	UpdateGroup = pygame.sprite.Group()
 	DrawGroup = pygame.sprite.Group()
 	asteroids = pygame.sprite.Group()
+	shots = pygame.sprite.Group()
 
 	# setup asteroid field
 	Asteroid.containers = (asteroids, UpdateGroup, DrawGroup)
@@ -29,6 +31,9 @@ def main():
 	# Spawn Player and add to groups
 	Player.containers = (UpdateGroup, DrawGroup)
 	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+	# add shots containers
+	Shot.containers = (shots, UpdateGroup, DrawGroup)
 
 	# game Loop
 	while True:
