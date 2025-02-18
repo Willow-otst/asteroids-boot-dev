@@ -41,6 +41,12 @@ def main():
 		GameUpdate(dt, UpdateGroup)
 		GameDraw(screen, DrawGroup)
 
+		# check collisions
+		for asteroid in asteroids:
+			if player.CollidesWith(asteroid):
+				print("Game Over!")
+				quit()
+
 		# tick dealta time
 		dt = clock.tick(60)/1000	
 
